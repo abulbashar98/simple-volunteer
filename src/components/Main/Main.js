@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useVolunteers from '../../hooks/useVolunteers';
 
 import Activity from '../Activity/Activity';
@@ -6,15 +6,37 @@ import './Main.css';
 
 const Main = () => {
 
-    const [volunteers] = useVolunteers()
+    const [searchText, setSearchText] = useState('');
     const [searchResult, setSearchResult] = useState([]);
 
 
+
+
+    useEffect(() => {
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const match = data.filter(d => d.title.includes(searchText))
+                setSearchResult(match)
+            })
+    }, [searchText])
+
+
+
     const handleOnchangeEvent = event => {
-        const searchText = event.target.value;
-        const match = volunteers.filter(v => v.title.includes(searchText))
-        setSearchResult(match)
+
+        setSearchText(event.target.value)
     }
+
+
+
+
+
+    // const handleOnchangeEvent2 = event => {
+    //     const searchText = event.target.value;
+    //     const match = volunteers.filter(v => v.title.includes(searchText))
+    //     setSearchResult(match)
+    // }
 
     return (
         <div>
