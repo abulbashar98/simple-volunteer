@@ -1,8 +1,9 @@
 import React from 'react';
 import './Activity.css';
 
-const Activity = ({activity}) => {
-    const {title, img} = activity;
+const Activity = ({ activity }) => {
+    const { title, img } = activity;
+
     return (
         <div className='activity'>
             <img src={img} alt="" />
